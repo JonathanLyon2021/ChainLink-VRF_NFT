@@ -1,4 +1,4 @@
-// contracts/DungeonsAndDragonsCharacter.sol
+// contracts/NFT1.sol
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.6.6;
 
@@ -7,7 +7,7 @@ import "@chainlink/contracts/src/v0.6/VRFConsumerBase.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract NFT1 is ERC721, VRFConsumerBase, Ownable {
+contract NFTCharacter is ERC721, VRFConsumerBase, Ownable {
     using SafeMath for uint256;
     using Strings for string;
     
@@ -43,4 +43,15 @@ contract NFT1 is ERC721, VRFConsumerBase, Ownable {
      * LINK token address:                0x01BE23585060835E02B77ef475b0Cc51aA1e0709
      * Key Hash: 0x2ed0feb3e7fd2022120aa84fab1945545a9f2ffc9076fd6156fa96eaff4c1311
      */
+   }
+   constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash)
+        public
+        VRFConsumerBase(_VRFCoordinator, _LinkToken)
+        ERC721("NFTCharacter", "NFTC")
+    {   
+        VRFCoordinator = _VRFCoordinator;
+        LinkToken = _LinkToken;
+        keyHash = _keyhash;
+        fee = 0.1 * 10**18; // 0.1 LINK
+    }
    }
