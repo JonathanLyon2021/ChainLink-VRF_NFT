@@ -107,4 +107,9 @@ contract NFTCharacter is ERC721, VRFConsumerBase, Ownable {
         );
         _safeMint(requestToSender[requestId], newId);
     }
+    
+    function getLevel(uint256 tokenId) public view returns (uint256) {
+        return sqrt(characters[tokenId].experience);
+    }
+    
    }
