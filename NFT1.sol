@@ -54,4 +54,17 @@ contract NFTCharacter is ERC721, VRFConsumerBase, Ownable {
         keyHash = _keyhash;
         fee = 0.1 * 10**18; // 0.1 LINK
     }
+    
+    function requestNewRandomCharacter(
+        string memory name
+    ) public returns (bytes32) {
+        require(
+            LINK.balanceOf(address(this)) >= fee,
+            "Not enough LINK - fill contract with faucet"
+        );
+        bytes32 requestId = requestRandomness(keyHash, fee);
+        requestToCharacterName[requestId] = name;
+        requestToSender[requestId] = msg.sender;
+        return requestId;
+    }
    }
