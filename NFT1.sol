@@ -115,4 +115,23 @@ contract NFTCharacter is ERC721, VRFConsumerBase, Ownable {
       function getNumberOfCharacters() public view returns (uint256) {
         return characters.length; 
     }
+    
+     function getCharacterOverView(uint256 tokenId)
+        public
+        view
+        returns (
+            string memory,
+            uint256,
+            uint256,
+            uint256
+        )
+    {
+        return (
+            characters[tokenId].name,
+            characters[tokenId].strength + characters[tokenId].dexterity + characters[tokenId].constitution + characters[tokenId].intelligence + characters[tokenId].wisdom + characters[tokenId].charisma,
+            getLevel(tokenId),
+            characters[tokenId].experience
+        );
+    }
+    
    }
